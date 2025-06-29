@@ -1,12 +1,13 @@
 package raisetech.Student.Manager;
 
-import io.micrometer.common.util.StringUtils;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.Mapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,57 +16,53 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class StudentManagerApplication {
 
-	private String name;
-	private String age;
+	@Autowired
+	private StudentRepository repository;
 
-	private Map<String, String> student = new HashMap<>();
+	private String name = "Enami Kouji";
+	private int age = 37;
+
+
 
 	public static void main(String[] args) {
 		SpringApplication.run(StudentManagerApplication.class, args);
 	}
 
 	//登録されたデータを表示する
-	@GetMapping("/studentInfo")
-	public Object studentInfo() {
-		if(student.isEmpty()) {
-			return "何も登録されてません。";
+	@GetMapping("/student")
+	public String getStudent(@RequestParam String name) {
+		Student student = repository.searchByName(name);
+		if(student == null) {
+			return name+ " さんは登録されていません。";
 		}
-		return student;
+		return  student.getName() + "：" + student.getAge() + "歳";
 	}
 
 	//新規登録
-	@PostMapping("/setStudent")
-	public String setStudent(@RequestParam String name,@RequestParam String age) {
+	@PostMapping("/student")
+	public String registerStudent(@RequestParam String name,@RequestParam int age) {
 		name = name.trim();
 
-		if(student.containsKey(name)) {
-			return "すでに登録されています";
-		}
-		student.put(name, age);
-		return "登録しました";
+		repository.registerStudent(name, age);
+		return name + " " + age + "歳を登録";
+
 	}
 
+
 	//情報の更新
-	@PostMapping("/updateStudent")
-	public String updateStudent(@RequestParam String name,@RequestParam String age) {
+	@PatchMapping("/student")
+	public String updateStudentName(@RequestParam String name, @RequestParam int age) {
 		name = name.trim();
+		repository.updateStudent(name,age);
 
-		if(!student.containsKey(name)) {
-			return "登録されていません。";
-		}
-
-		student.put(name, age);
-		return "情報を更新しました";
+		return name + "を" + age + "歳に更新";
 	}
 
 	//データの削除
-	@PostMapping("/deleteStudent")
-	public String deleteStudent(@RequestParam String name,@RequestParam String age) {
+	@DeleteMapping("/student")
+	public String student(@RequestParam String name) {
 		name = name.trim();
-		if(!student.containsKey(name)) {
-			return "登録されていません。";
-		}
-		student.remove(name, age);
-		return "情報を削除しました";
+		repository.deleteStudent(name);
+		return name + "を" + "削除";
 	}
 }
