@@ -15,8 +15,8 @@ public class StudentManagerApplication {
 	@Autowired
 	private StudentRepository repository;
 
-	private String name = "Enami Kouji";
-	private int age = 37;
+	@Autowired
+	private StudentCourseRepository studentCourseRepository;
 
 
 
@@ -30,4 +30,8 @@ public class StudentManagerApplication {
 		return repository.search();
 	}
 
+	@GetMapping("/studentCourseList")
+	public List<StudentCourse> getStudentCouseList() {
+		return studentCourseRepository.search();
+	}
 }
