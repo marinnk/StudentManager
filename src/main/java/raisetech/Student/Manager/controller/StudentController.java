@@ -18,7 +18,7 @@ public class StudentController {
     this.service = service;
   }
 
-  //全件検索
+  //絞り込み検索
   @GetMapping("/studentList")
   public List<Student> getStudentList() {
     return service.searchStudentList();
@@ -28,4 +28,5 @@ public class StudentController {
   public List<StudentCourse> getStudentCouseList() {
     return service.searchStudentCouseList();
   }
+
 }
