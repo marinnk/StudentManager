@@ -4,7 +4,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import raisetech.Student.Manager.date.Student;
-import raisetech.Student.Manager.date.StudentCourse;
+import raisetech.Student.Manager.date.StudentCourses;
 
 @Mapper
 public interface StudentRepository {
@@ -13,5 +13,6 @@ public interface StudentRepository {
   List<Student> search();
 
   @Select("SELECT * FROM students_courses")
-  List<StudentCourse> searchStudentCourse();
+  List<StudentCourses> searchStudentCourse();
+
  }
