@@ -4,7 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import raisetech.Student.Manager.date.Student;
-import raisetech.Student.Manager.date.StudentCourse;
+import raisetech.Student.Manager.date.StudentCourses;
 import raisetech.Student.Manager.repository.StudentRepository;
 
 @Service
@@ -25,7 +25,7 @@ public class StudentService {
 
 
 
-  public List<StudentCourse> searchStudentCouseList() {
+  public List<StudentCourses> searchStudentCouseList() {
     return repository.searchStudentCourse().stream()
         .filter(studentCourse -> studentCourse.getCoursesName().equals("java"))
         .toList();
