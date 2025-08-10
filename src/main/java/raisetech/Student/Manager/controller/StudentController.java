@@ -56,6 +56,7 @@ public class StudentController {
     }
 
     //新規受講生情報を登録する処理を実装
+    service.registerStudent(studentDetail);
     //コース情報も一緒に登録できるよう実装。コースは単体で良い。
     return "redirect:/studentList";
   }
