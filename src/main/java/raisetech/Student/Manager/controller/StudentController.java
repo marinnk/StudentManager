@@ -1,6 +1,6 @@
 package raisetech.Student.Manager.controller;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import raisetech.Student.Manager.controller.converter.StudentConverter;
 import raisetech.Student.Manager.date.Student;
 import raisetech.Student.Manager.date.StudentCourses;
-import raisetech.Student.Manager.domain.StudentDetail;
+import raisetech.Student.Manager.domain.studentDetail;
 import raisetech.Student.Manager.service.StudentService;
 
 @Controller
@@ -45,12 +45,14 @@ public class StudentController {
 
   @GetMapping("/newStudent")
   public String newStudent(Model model) {
-    model.addAttribute("studentDetail", new StudentDetail());
+    studentDetail studentDetail = new studentDetail();
+    studentDetail.setStudentCourses(Arrays.asList(new StudentCourses()));
+    model.addAttribute("studentDetail", studentDetail);
     return "registerStudent";
   }
 
   @PostMapping("/registerStudent")
-  public String registerStudent(@ModelAttribute StudentDetail studentDetail, BindingResult result) {
+  public String registerStudent(@ModelAttribute studentDetail studentDetail, BindingResult result) {
     if(result.hasErrors()) {
       return "registerStudent";
     }

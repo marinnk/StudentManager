@@ -5,16 +5,16 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 import raisetech.Student.Manager.date.Student;
 import raisetech.Student.Manager.date.StudentCourses;
-import raisetech.Student.Manager.domain.StudentDetail;
+import raisetech.Student.Manager.domain.studentDetail;
 
 @Component
 public class StudentConverter {
 
-  public List<StudentDetail> convertStudentDetails(List<Student> students,
+  public List<studentDetail> convertStudentDetails(List<Student> students,
       List<StudentCourses> studentCourses) {
-    List<StudentDetail> studentDetails = new ArrayList<>();
+    List<studentDetail> studentDetails = new ArrayList<>();
     students.forEach(student -> {
-      StudentDetail studentDetail = new StudentDetail();
+      studentDetail studentDetail = new studentDetail();
       studentDetail.setStudent(student);
 
       List<StudentCourses> convertStudentCourses = new ArrayList<>();

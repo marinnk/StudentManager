@@ -8,7 +8,7 @@ import raisetech.Student.Manager.date.StudentCourses;
 
 @Getter
 @Setter
-public class StudentDetail {
+public class studentDetail {
 
   private Student student;
   private List<StudentCourses> studentCourses;
